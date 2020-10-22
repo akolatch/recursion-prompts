@@ -7,31 +7,71 @@
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
 var factorial = function(n) {
+    if (n < 0) {
+        return null;
+    }
+    if (n > 1) {
+        return n * factorial(n - 1);
+    }
+    return 1;
 };
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
 var sum = function(array) {
+    const newArr = array.slice();
+    if (newArr.length >= 1) {
+        const n = newArr.pop();
+        return n + sum(newArr);
+    }
+    return 0;
 };
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
+    const newArr = array.slice();
+    if (newArr.length >= 1) {
+        let n = newArr.pop();
+        if (Array.isArray(n)) {
+            n = arraySum(n);
+        }
+        return n + arraySum(newArr);
+    }
+    return 0;
 };
 
 // 4. Check if a number is even.
-var isEven = function(n) {
+var isEven = function(n) { 
+    if (n > 2) {
+        return isEven(n - 2);
+    }
+    if (n < -2) {
+        return isEven(n + 2);
+    }
+    return n === 2 || n === - 2 || n === 0;
 };
 
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n) {
+    if (n === 0) return 0;
+    n > 0 ? n = n - 1 : n = n + 1;
+    return n + sumBelow(n);
 };
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+  if (x === y) return [];
+  let n;
+  x < y ? n = - 1 : n = 1;
+  if (x === y + n) return [];
+  y = y + n;
+  const result = range(x, y);
+  result.push(y);
+  return result;
 };
 
 // 7. Compute the exponent of a number.
@@ -47,10 +87,12 @@ var exponent = function(base, exp) {
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
+    return n > 1 ? powerOfTwo(n / 2) : n === 1;
 };
 
 // 9. Write a function that reverses a string.
 var reverse = function(string) {
+    
 };
 
 // 10. Write a function that determines if a string is a palindrome.
